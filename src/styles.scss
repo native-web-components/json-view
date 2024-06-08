@@ -8,6 +8,33 @@
     border-radius: 4px;
     background-color: #f9f9f9;
     line-height: 1.5;
+    position: relative;
+
+    & > .json-object {
+      margin-left: 0;
+    }
+
+    .copy-button {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background-color: #0275d8;
+      color: #fff;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .copy-button:hover {
+      background-color: #025aa5;
+    }
+  }
+  .colon {
+    margin-right: 5px;
+  }
+
+  .bracket {
+    margin-left: -10px;
   }
 
   .json-key {
@@ -34,11 +61,10 @@
     cursor: pointer;
     color: #0275d8;
     user-select: none;
-    margin-left: 5px;
   }
   .json-object {
-    margin-left: 20px;
-    border-left: 2px solid #ddd;
+    margin-left: 10px;
+    border-left: 1px solid rgba($color: #ddd, $alpha: 0.5);
     padding-left: 10px;
   }
   .hidden {

@@ -9,7 +9,7 @@
   </head>
   <body>
     <div id="app"></div>
-    <json-view data="{}" space="2" color="true"></json-view>
+    <json-view data="123" space="2" color="true"></json-view>
     <script>
       setTimeout(() => {
         const json = {
@@ -22,6 +22,7 @@
           hobbies: ["reading", "travelling"],
           isActive: true,
           data: [1, 2, 3],
+          test: null,
         };
         let dom = document.querySelector("json-view");
         dom.setAttribute("data", JSON.stringify(json));
