@@ -5,25 +5,26 @@
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vite + TS + Web Component[json-view]</title>
-    <script type="module" src="/src/main.ts"></script>
+    <script type="module" src="main.ts"></script>
   </head>
   <body>
     <div id="app"></div>
     <json-view data="{}" space="2" color="true"></json-view>
     <script>
       setTimeout(() => {
-        const data = {
-          a: 1,
-          b: {
-            c: 3,
-            ba: "ba",
+        const json = {
+          name: "John",
+          age: 30,
+          address: {
+            city: "New York",
+            postalCode: "10001",
           },
-          d: true,
-          f: "f",
-          g: 3.14,
+          hobbies: ["reading", "travelling"],
+          isActive: true,
+          data: [1, 2, 3],
         };
         let dom = document.querySelector("json-view");
-        dom.setAttribute("data", JSON.stringify(data));
+        dom.setAttribute("data", JSON.stringify(json));
       }, 3000);
     </script>
   </body>

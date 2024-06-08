@@ -1,5 +1,6 @@
 import { defineConfig, loadEnv, ConfigEnv } from "vite";
 import { resolve } from "path";
+import dts from "vite-plugin-dts";
 
 export default defineConfig(async (params: ConfigEnv) => {
   const { command, mode } = params;
@@ -14,7 +15,7 @@ export default defineConfig(async (params: ConfigEnv) => {
     },
     build: {
       lib: {
-        entry: resolve(__dirname, "src/main.ts"),
+        entry: resolve(__dirname, "src/index.ts"),
         name: "WebComponent",
         fileName: (format: string) => `json-view.${format}.js`,
         // formats: ["es", "umd"],
@@ -28,6 +29,6 @@ export default defineConfig(async (params: ConfigEnv) => {
         },
       },
     },
-    plugins: [],
+    plugins: [dts({ rollupTypes: true })],
   };
 });

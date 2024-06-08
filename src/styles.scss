@@ -1,26 +1,47 @@
 :host {
-  pre {
-    // display: inline-block;
-    margin: 5px;
-    padding: 5px;
-    line-height: 1.2;
-    border: 1px solid #f2f2f2;
-    overflow: hidden;
+  .json-container {
+    font-family: monospace;
+    white-space: pre;
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+    line-height: 1.5;
   }
 
-  .pre-string {
-    color: green;
+  .json-key {
+    font-weight: bold;
+    color: #d9534f;
   }
-  .pre-number {
-    color: darkorange;
+  .json-value {
+    color: #5cb85c;
+
+    &.string {
+      color: green;
+    }
+    &.number {
+      color: darkorange;
+    }
+    &.boolean {
+      color: blue;
+    }
+    &.null {
+      color: magenta;
+    }
   }
-  .pre-boolean {
-    color: blue;
+  .json-toggle {
+    cursor: pointer;
+    color: #0275d8;
+    user-select: none;
+    margin-left: 5px;
   }
-  .pre-null {
-    color: magenta;
+  .json-object {
+    margin-left: 20px;
+    border-left: 2px solid #ddd;
+    padding-left: 10px;
   }
-  .pre-key {
-    color: red;
+  .hidden {
+    display: none;
   }
 }
