@@ -7,6 +7,7 @@ class WebComponent extends BaseComponent {
   }
   constructor() {
     super();
+    this.watchOutHtmlChange();
   }
   attributeChangedCallback(name: string, _oldValue: string, newValue: string) {
     switch (name) {
@@ -16,18 +17,41 @@ class WebComponent extends BaseComponent {
     }
     this.render();
   }
+
+  watchOutHtmlChange() {
+    const getData = () => {
+      const div = document.createElement("div");
+      div.innerHTML = this.innerHTML;
+      const data = div.innerText.trim();
+      this.data = data;
+      this.render();
+    };
+    getData();
+
+    const MutationObserver =
+      window.MutationObserver || (window as any).WebKitMutationObserver;
+    const config = { childList: true, subtree: true };
+    const observer = new MutationObserver(getData);
+    observer.observe(this, config);
+  }
+
   render(): void {
     super.render();
 
     const container = createElement("div", "json-container");
     this.shadowRoot!.appendChild(container);
     if (this.data) {
-      const json = JSON.parse(this.data);
       this.addCopyButton(container);
-      if (typeof json === "object" && json !== null) {
-        const jsonObject = createElement("div", "json-object");
-        container.appendChild(jsonObject);
-        return createJsonTree(json, jsonObject);
+      try {
+        const json = JSON.parse(this.data);
+        if (typeof json === "object" && json !== null) {
+          const jsonObject = createElement("div", "json-object");
+          container.appendChild(jsonObject);
+          return createJsonTree(json, jsonObject);
+        }
+      } catch (error) {
+        container.innerHTML = this.data;
+        return;
       }
     }
     container.innerHTML = this.data;
@@ -37,8 +61,13 @@ class WebComponent extends BaseComponent {
     const button = createElement("button", "copy-button", "Copy");
     container.appendChild(button);
     button.addEventListener("click", () => {
-      const json = JSON.parse(this.data);
-      const jsonString = JSON.stringify(json, null, 2);
+      let jsonString = "";
+      try {
+        const json = JSON.parse(this.data);
+        jsonString = JSON.stringify(json, null, 2);
+      } catch (error) {
+        jsonString = this.data;
+      }
       navigator.clipboard.writeText(jsonString).then(() => {
         alert("JSON copied to clipboard");
       });

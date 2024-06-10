@@ -9,7 +9,9 @@
   </head>
   <body>
     <div id="app"></div>
-    <json-view data="123" space="2" color="true"></json-view>
+    <json-view class="json-view1" data="123" space="2" color="true"></json-view>
+    <br />
+    <json-view class="json-view2">aaa</json-view>
     <script>
       setTimeout(() => {
         const json = {
@@ -24,8 +26,11 @@
           data: [1, 2, 3],
           test: null,
         };
-        let dom = document.querySelector("json-view");
-        dom.setAttribute("data", JSON.stringify(json));
+        let dom1 = document.querySelector(".json-view1");
+        dom1.setAttribute("data", JSON.stringify(json));
+
+        let dom2 = document.querySelector(".json-view2");
+        dom2.innerText = JSON.stringify(json);
       }, 3000);
     </script>
   </body>
