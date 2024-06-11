@@ -29,6 +29,6 @@ export default defineConfig(async (params: ConfigEnv) => {
         },
       },
     },
-    plugins: [dts({ rollupTypes: true })],
+    plugins: [dts({ insertTypesEntry: true, rollupTypes: true })],
   };
 });
