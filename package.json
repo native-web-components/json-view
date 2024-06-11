@@ -12,7 +12,9 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build:example": "tsc && vite build",
+    "build:lib": "tsc && vite build --config ./vite-lib.config.js",
+    "build": "npm run build:lib && npm run build:example",
     "preview": "vite preview"
   },
   "devDependencies": {
