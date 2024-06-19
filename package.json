@@ -4,9 +4,10 @@
   "version": "0.0.0",
   "type": "module",
   "types": "./dist/json-view.d.ts",
+  "main": "dist/json-view.es.js",
   "exports": {
     ".": {
-      "import": "./dist/json-view.js",
+      "import": "./dist/json-view.es.js",
       "require": "./dist/json-view.umd.js"
     }
   },
