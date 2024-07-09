@@ -12,6 +12,7 @@
     <json-view class="json-view1" data="123" space="2" color="true"></json-view>
     <br />
     <json-view class="json-view2">aaa</json-view>
+    <json-view class="json-view3">bbb</json-view>
     <script>
       setTimeout(() => {
         const json = {
@@ -31,6 +32,9 @@
 
         let dom2 = document.querySelector(".json-view2");
         dom2.innerText = JSON.stringify(json);
+
+        let dom3 = document.querySelector(".json-view3");
+        dom3.set("data", JSON.stringify(json));
       }, 3000);
     </script>
   </body>

@@ -11,6 +11,15 @@ class BaseComponent extends HTMLElement {
     // this.shadowRoot!.appendChild(div);
   }
 
+  set<K extends keyof this>(key: K, value: this[K]) {
+    this[key] = value;
+    this.render();
+  }
+
+  get<K extends keyof this>(key: K) {
+    return this[key];
+  }
+
   connectedCallback() {
     // console.log("connectedCallback when Custom element added to page.");
     this.render();

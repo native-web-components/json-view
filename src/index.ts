@@ -1,6 +1,6 @@
 import BaseComponent from "./BaseComponent";
 class WebComponent extends BaseComponent {
-  data: string = "";
+  data: string | Record<string, any> = "";
   // 监听的属性列表
   static get observedAttributes(): string[] {
     return ["data"];
@@ -43,18 +43,18 @@ class WebComponent extends BaseComponent {
     if (this.data) {
       this.addCopyButton(container);
       try {
-        const json = JSON.parse(this.data);
+        const json = typeof this.data === "string" ? JSON.parse(this.data) : this.data;
         if (typeof json === "object" && json !== null) {
           const jsonObject = createElement("div", "json-object");
           container.appendChild(jsonObject);
           return createJsonTree(json, jsonObject);
         }
       } catch (error) {
-        container.innerHTML = this.data;
+        container.innerHTML = typeof this.data === "string" ? this.data : JSON.stringify(this.data, null, 2);
         return;
       }
     }
-    container.innerHTML = this.data;
+    container.innerHTML = typeof this.data === "string" ? this.data : JSON.stringify(this.data, null, 2);
   }
 
   addCopyButton(container: HTMLElement) {
@@ -63,10 +63,10 @@ class WebComponent extends BaseComponent {
     button.addEventListener("click", () => {
       let jsonString = "";
       try {
-        const json = JSON.parse(this.data);
+        const json = typeof this.data === "string" ? JSON.parse(this.data) : this.data;
         jsonString = JSON.stringify(json, null, 2);
       } catch (error) {
-        jsonString = this.data;
+        jsonString = typeof this.data === "string" ? this.data : JSON.stringify(this.data, null, 2);
       }
       navigator.clipboard.writeText(jsonString).then(() => {
         alert("JSON copied to clipboard");
@@ -107,20 +107,17 @@ function createJsonTree(json: any, container: HTMLElement) {
         const toggleElement = createElement(
           "span",
           "json-toggle",
-          `[+]${Array.isArray(json[key]) ? "Array" : "Object"}(${
-            Object.keys(json[key]).length
+          `[+]${Array.isArray(json[key]) ? "Array" : "Object"}(${Object.keys(json[key]).length
           })`
         );
         toggleElement.onclick = function (event: any) {
           const sibling = event.target!.nextElementSibling;
           sibling.classList.toggle("hidden");
           event.target.innerText = sibling.classList.contains("hidden")
-            ? `[+]${Array.isArray(json[key]) ? "Array" : "Object"}(${
-                Object.keys(json[key]).length
-              })`
-            : `[-]${Array.isArray(json[key]) ? "Array" : "Object"}(${
-                Object.keys(json[key]).length
-              })`;
+            ? `[+]${Array.isArray(json[key]) ? "Array" : "Object"}(${Object.keys(json[key]).length
+            })`
+            : `[-]${Array.isArray(json[key]) ? "Array" : "Object"}(${Object.keys(json[key]).length
+            })`;
         };
         container.appendChild(toggleElement);
 
